@@ -10,6 +10,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Fix Directory Permissions
+        run: |
+          sudo chown -R ubuntu:ubuntu /home/ubuntu/actions-runner/actions-runner/mydemo/test.python/test.python || true
+
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -20,10 +24,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-           python -m venv venv
-           source venv/bin/activate
-           pip install --upgrade pip
-           pip install -r requirements.txt
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Restart Apache
         run: |
